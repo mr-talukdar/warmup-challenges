@@ -119,7 +119,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
-              <span className="text-xl font-bold text-black">🍳</span>
+              <span className="text-xl font-bold text-black" role="img" aria-label="cooking pot">🍳</span>
             </div>
             <div>
               <span className="font-bold text-lg bg-gradient-to-r from-amber-200 via-orange-300 to-amber-100 bg-clip-text text-transparent">
@@ -222,6 +222,7 @@ export default function Home() {
                       <button
                         type="button"
                         onClick={() => setServings(s => Math.max(1, s - 1))}
+                        aria-label="Decrease servings"
                         className="flex-1 py-1.5 rounded-lg text-slate-400 hover:bg-slate-900 active:scale-95 transition"
                       >
                         -
@@ -230,6 +231,7 @@ export default function Home() {
                       <button
                         type="button"
                         onClick={() => setServings(s => Math.min(10, s + 1))}
+                        aria-label="Increase servings"
                         className="flex-1 py-1.5 rounded-lg text-slate-400 hover:bg-slate-900 active:scale-95 transition"
                       >
                         +
@@ -258,9 +260,9 @@ export default function Home() {
 
             {/* Quick samples section */}
             <div className="space-y-3">
-              <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-widest text-center">
+              <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-widest text-center">
                 Or pick a quick scenario to test
-              </h3>
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {SAMPLE_PROMPTS.map((sample, idx) => (
                   <button
@@ -338,9 +340,9 @@ export default function Home() {
                 
                 {/* Meals Section */}
                 <section className="space-y-4">
-                  <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                    <span>🍽️</span> Breakfast, Lunch & Dinner Tasks
-                  </h3>
+                  <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                    <span role="img" aria-label="plate with cutlery">🍽️</span> Breakfast, Lunch & Dinner Tasks
+                  </h2>
 
                   <div className="grid grid-cols-1 gap-4">
                     {(['breakfast', 'lunch', 'dinner'] as const).map((mealType) => {
@@ -360,12 +362,13 @@ export default function Home() {
                           <div className="p-5 md:p-6 flex flex-col md:flex-row md:items-start gap-4">
                             {/* Icon / Status indicator */}
                             <div className="flex items-center justify-between md:flex-col md:items-center gap-3">
-                              <span className="text-3xl capitalize">
+                              <span className="text-3xl capitalize" role="img" aria-label={mealType}>
                                 {mealType === 'breakfast' ? '🌅' : mealType === 'lunch' ? '☀️' : '🌙'}
                               </span>
                               <button
                                 type="button"
                                 onClick={() => toggleMealComplete(mealType)}
+                                aria-label={`Mark ${mealType} as ${isComplete ? 'incomplete' : 'complete'}`}
                                 className={`w-8 h-8 rounded-lg flex items-center justify-center border transition ${
                                   isComplete
                                     ? 'bg-emerald-500 border-emerald-400 text-black'
@@ -373,11 +376,11 @@ export default function Home() {
                                 }`}
                               >
                                 {isComplete ? (
-                                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
                                   </svg>
                                 ) : (
-                                  <span className="text-xs">Done</span>
+                                  <span className="text-xs" aria-hidden="true">Done</span>
                                 )}
                               </button>
                             </div>
@@ -389,7 +392,7 @@ export default function Home() {
                                   {mealType}
                                 </span>
                                 <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-900 text-amber-500 border border-slate-800">
-                                  ⏱️ {meal.prepTime}
+                                  <span role="img" aria-label="prep time">⏱️</span> {meal.prepTime}
                                 </span>
                               </div>
 
@@ -425,9 +428,9 @@ export default function Home() {
                 {/* Substitutes Section */}
                 {result.substitutes && result.substitutes.length > 0 && (
                   <section className="space-y-4">
-                    <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                      <span>🔄</span> Smart Substitutions
-                    </h3>
+                    <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                      <span role="img" aria-label="substitutions">🔄</span> Smart Substitutions
+                    </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {result.substitutes.map((sub, idx) => (
                         <div key={idx} className="p-4 rounded-xl border border-slate-900 bg-slate-900/20 space-y-2">
@@ -452,9 +455,9 @@ export default function Home() {
                 {/* Budget Analysis Card */}
                 {result.budgetAnalysis && (
                   <section className="space-y-3">
-                    <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">
-                      💰 Cost Breakdown
-                    </h3>
+                    <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider">
+                      <span role="img" aria-label="money bag">💰</span> Cost Breakdown
+                    </h2>
                     <div className="p-5 rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 shadow-xl space-y-4">
                       
                       {/* Budget VS Cost Indicators */}
@@ -486,11 +489,11 @@ export default function Home() {
                       }`}>
                         {result.budgetAnalysis.withinBudget ? (
                           <>
-                            <span>✓</span> Under budget by ₹{result.budgetAnalysis.budget - result.budgetAnalysis.totalEstimatedCost}!
+                            <span role="img" aria-label="check icon">✓</span> Under budget by ₹{result.budgetAnalysis.budget - result.budgetAnalysis.totalEstimatedCost}!
                           </>
                         ) : (
                           <>
-                            <span>⚠️</span> Exceeds target budget by ₹{result.budgetAnalysis.totalEstimatedCost - result.budgetAnalysis.budget}.
+                            <span role="img" aria-label="warning icon">⚠️</span> Exceeds target budget by ₹{result.budgetAnalysis.totalEstimatedCost - result.budgetAnalysis.budget}.
                           </>
                         )}
                       </div>
@@ -504,7 +507,7 @@ export default function Home() {
                           <ul className="space-y-1.5">
                             {result.budgetAnalysis.savingsTips.map((tip, idx) => (
                               <li key={idx} className="text-xs text-slate-400 flex items-start gap-1.5">
-                                <span className="text-amber-500 mt-0.5">•</span>
+                                <span className="text-amber-500 mt-0.5" aria-hidden="true">•</span>
                                 <span className="leading-relaxed">{tip}</span>
                               </li>
                             ))}
@@ -519,9 +522,9 @@ export default function Home() {
                 {result.groceryList && result.groceryList.length > 0 && (
                   <section className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">
-                        🛒 Grocery Checklist
-                      </h3>
+                      <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider">
+                        <span role="img" aria-label="shopping cart">🛒</span> Grocery Checklist
+                      </h2>
                       <span className="text-xs text-slate-500">
                         {Object.values(purchasedItems).filter(Boolean).length} / {result.groceryList.length} checked
                       </span>
@@ -536,8 +539,17 @@ export default function Home() {
                           return (
                             <div
                               key={itemKey}
+                              role="checkbox"
+                              aria-checked={isChecked}
+                              tabIndex={0}
                               onClick={() => togglePurchased(itemKey)}
-                              className={`p-3.5 flex items-center justify-between gap-3 cursor-pointer select-none transition ${
+                              onKeyDown={(e) => {
+                                if (e.key === ' ' || e.key === 'Enter') {
+                                  e.preventDefault();
+                                  togglePurchased(itemKey);
+                                }
+                              }}
+                              className={`p-3.5 flex items-center justify-between gap-3 cursor-pointer select-none transition focus:outline-none focus:bg-slate-900/40 rounded-xl ${
                                 isChecked
                                   ? 'bg-slate-900/20 hover:bg-slate-900/30 opacity-60'
                                   : 'hover:bg-slate-900/30'
@@ -549,7 +561,7 @@ export default function Home() {
                                   isChecked
                                     ? 'bg-amber-500 border-amber-400 text-black'
                                     : 'border-slate-800'
-                                }`}>
+                                }`} aria-hidden="true">
                                   {isChecked && (
                                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
